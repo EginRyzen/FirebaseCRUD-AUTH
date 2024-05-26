@@ -12,33 +12,65 @@ import { DarkModeContext } from "./context/darkModeContext";
 function App() {
   const { darkMode } = useContext(DarkModeContext);
 
+  const currentUser = false;
+
+  const RequiredAuth = ({ children }) => {
+    return currentUser ? children : <Login />;
+  };
+
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
+            <Route index element={
+              <RequiredAuth>
+                <Home />
+              </RequiredAuth>} />
             <Route path="users">
-              <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} />
+              <Route index element={
+                <RequiredAuth>
+                  <List />
+                </RequiredAuth>
+              } />
+              <Route path=":userId" element={
+                <RequiredAuth>
+                  <Single />
+                </RequiredAuth>
+              } />
               <Route
                 path="new"
-                element={<New inputs={userInputs} title="Add New User" />}
+                element={
+                  <RequiredAuth>
+                    <New inputs={userInputs} title="Add New User" />
+                  </RequiredAuth>
+                }
               />
             </Route>
             <Route path="products">
-              <Route index element={<List />} />
-              <Route path=":productId" element={<Single />} />
+              <Route index element={
+                <RequiredAuth>
+                  <List />
+                </RequiredAuth>
+              } />
+              <Route path=":productId" element={
+                <RequiredAuth>
+                  <Single />
+                </RequiredAuth>
+              } />
               <Route
                 path="new"
-                element={<New inputs={productInputs} title="Add New Product" />}
+                element={
+                  <RequiredAuth>
+                    <New inputs={productInputs} title="Add New Product" />
+                  </RequiredAuth>}
               />
             </Route>
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </div >
   );
 }
 
