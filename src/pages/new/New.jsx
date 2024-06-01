@@ -67,7 +67,7 @@ const New = ({ inputs, title }) => {
 
       await setDoc(doc(db, "users", res.user.uid), {
         ...data,
-        Timestamp: serverTimestamp(),
+        timeStamp: serverTimestamp(),
       });
       navigate(-1);
     } catch (err) {

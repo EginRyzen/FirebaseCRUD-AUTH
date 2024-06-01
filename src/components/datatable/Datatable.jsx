@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 
-const Datatable = () => {
+const Datatable = ({ typoe }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
